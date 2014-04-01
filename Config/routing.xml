@@ -1,0 +1,29 @@
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <!-- Route to administration base -->
+    <route id="admin.rewriting.default" path="/admin/module/RewritingUrl">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::defaultAction</default>
+    </route>
+    
+    <route id="admin.rewriting.update-values" path="/admin/module/RewritingUrl/update-values">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::changeValuesAction</default>
+    </route>
+
+    <route id="admin.rewriting.create" path="/admin/module/RewritingUrl/create">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::createAction</default>
+    </route>
+
+    <route id="admin.rewriting.update" path="/admin/module/RewritingUrl/update">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::updateAction</default>
+    </route>
+
+    <route id="admin.rewriting.save" path="/admin/module/RewritingUrl/save">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::processUpdateAction</default>
+    </route>
+
+    <route id="admin.rewriting.delete" path="/admin/module/RewritingUrl/delete">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::deleteAction</default>
+    </route>
+</routes>

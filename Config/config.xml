@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config xmlns="http://thelia.net/schema/dic/config"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://thelia.net/schema/dic/config http://thelia.net/schema/dic/config/thelia-1.0.xsd">
+
+    <loops>
+        <loop class="RewritingUrl\Loop\Rewriting" name="rewriting" />
+    </loops>
+
+    <forms>
+        <form name="admin.rewriting.creation" class="RewritingUrl\Form\RewritingUrlCreationForm"/>
+        <form name="admin.rewriting.modification" class="RewritingUrl\Form\RewritingUrlModificationForm"/>
+    </forms>
+
+    <commands>
+        <!--
+        <command class="MyModule\Command\MySuperCommand" />
+        -->
+    </commands>
+
+    <services>
+        <service id="rewriting.action" class="RewritingUrl\Action\RewritingUrl">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</config>
