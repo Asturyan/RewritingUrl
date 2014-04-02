@@ -23,26 +23,21 @@
 
 namespace RewritingUrl\Form;
 
+use Propel\Runtime\ActiveQuery\Criteria;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\ExecutionContextInterface;
 use Thelia\Core\Translation\Translator;
+use Thelia\Model\RewritingUrlQuery;
+use Thelia\Model\Base\LangQuery;
 
-use Thelia\Form\BaseForm;
-
-class RewritingUrlModificationForm extends BaseForm
+class RewritingUrlModificationForm extends RewritingUrlCreationForm
 {
 
-    protected function buildForm($change_mode = false)
+    protected function buildForm()
     {
-        $url_constraints = array(new NotBlank());
-
-        if (!$change_mode) {
-            $url_constraints[] = new Callback(array(
-                "methods" => array(array($this, "checkDuplicateUrl"))
-            ));
-        }
-        
+        parent::buildForm();
         $this->formBuilder
             ->add("id", "hidden", array(
                     "constraints" => array(
@@ -51,41 +46,34 @@ class RewritingUrlModificationForm extends BaseForm
                         )
                     )
             ))
-            ->add("view", "text", array(
+            ->remove('view_locale')
+            ->add("view_locale", "choice", array(
+                'choices'   => LangQuery::create()->orderById()->find()->toKeyValue('locale', 'title'),
                 "constraints" => array(
                     new NotBlank()
                 ),
-                'label' => Translator::getInstance()->trans('View *'),
-                'label_attr' => array(
-                    'for' => 'view'
-                )
-            ))
-            ->add("view_id", "text", array(
-                "label" => Translator::getInstance()->trans('View ID'),
+                "label" => Translator::getInstance()->trans('View Locale'),
                 "label_attr" => array(
-                    "for" => "view_id"
-                )
-            ))
-            ->add("url", "text", array(
-                "constraints" => $url_constraints,
-                "label" => Translator::getInstance()->trans('Url *'),
-                "label_attr" => array(
-                    "for" => "url"
-                )
-            ))
-            ->add("view_locale", "hidden", array(
-                "constraints" => array(
-                    new NotBlank()
-                )
-            ))
-            ->add("redirected", "text", array(
-                "label" => Translator::getInstance()->trans('Redirected'),
-                "label_attr" => array(
-                    "for" => "value"
+                    "for" => "view_locale"
                 )
             ))
          ;
 
+    }
+    
+    public function checkDuplicateUrl($value, ExecutionContextInterface $context)
+    {
+        $data = $context->getRoot()->getData();
+
+        $rewriting = RewritingUrlQuery::create()
+                ->filterById($data['id'], Criteria::NOT_IN)
+                ->filterByViewLocale($data['view_locale'])
+                ->filterByUrl($value)
+                ->findOne();
+       
+        if ($rewriting) {
+            $context->addViolation(Translator::getInstance()->trans('A rewriting rule with url "%url" already exists.', array('%url' => $value)));
+        }
     }
 
     public function getName()

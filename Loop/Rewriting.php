@@ -79,10 +79,10 @@ class Rewriting extends BaseLoop implements PropelSearchLoopInterface
         }
         
         $lang = $this->getLang();
+        
         if (!is_null($lang)) {
             $localeSearch = LangQuery::create()->findPk($lang);
             $search->filterByViewLocale($localeSearch->getLocale());
-            
         }
         
         $orders  = $this->getOrder();
@@ -135,11 +135,12 @@ class Rewriting extends BaseLoop implements PropelSearchLoopInterface
         foreach ($loopResult->getResultDataCollection() as $rewrite) {
 
             $loopResultRow = new LoopResultRow($rewrite);
-
+            $lang = LangQuery::create()->findOneByLocale($rewrite->getViewLocale());
             $loopResultRow
                 ->set("ID"                      , $rewrite->getId())
                 ->set("URL"                     , $rewrite->getUrl())
-                ->set("LOCALE"                  , $this->locale)
+                ->set("VIEW_LOCALE"             , $rewrite->getViewLocale())
+                ->set("VIEW_LOCALE_ID"          , $lang->getId())
                 ->set("VIEW"                    , $rewrite->getView())
                 ->set("VIEW_ID"                 , $rewrite->getViewId())
                 ->set("CUSTOM"                  , !in_array($rewrite->getView(), $this->default_views)?TRUE:FALSE)

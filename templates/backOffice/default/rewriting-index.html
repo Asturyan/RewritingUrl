@@ -161,7 +161,7 @@
 
 			{form_field form=$form field='success_url'}
 			{* on success, redirect to the edition page, _ID_ is replaced with the created variable ID, see controller  *}
-			<input type="hidden" name="{$name}" value="{url path='/admin/module/RewritingUrl/update' variable_id='_ID_'}" />
+			<input type="hidden" name="{$name}" value="{url path='/admin/module/RewritingUrl/update' rewriting_id='_ID_'}" />
 			{/form_field}
 
 			{form_field form=$form field='view'}

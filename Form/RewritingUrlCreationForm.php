@@ -32,15 +32,8 @@ use Thelia\Form\BaseForm;
 
 class RewritingUrlCreationForm extends BaseForm
 {
-    protected function buildForm($change_mode = false)
+    protected function buildForm()
     {
-        $url_constraints = array(new Constraints\NotBlank());
-
-        if (!$change_mode) {
-            $url_constraints[] = new Constraints\Callback(array(
-                "methods" => array(array($this, "checkDuplicateUrl"))
-            ));
-        }
 
         $this->formBuilder
             ->add("view", "text", array(
@@ -59,7 +52,13 @@ class RewritingUrlCreationForm extends BaseForm
                 )
             ))
             ->add("url", "text", array(
-                "constraints" => $url_constraints,
+                "constraints" => array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Callback(
+                        array(
+                            "methods" => array(array($this, "checkDuplicateUrl"))
+                        )
+                )),
                 "label" => Translator::getInstance()->trans('Url *'),
                 "label_attr" => array(
                     "for" => "url"

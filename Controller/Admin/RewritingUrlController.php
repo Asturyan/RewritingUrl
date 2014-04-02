@@ -109,10 +109,6 @@ class RewritingUrlController extends AbstractCrudController
         $rewriting = RewritingUrlQuery::create()
         ->findOneById($this->getRequest()->get('rewriting_id'));
 
-        if (null !== $rewriting) {
-            $rewriting->setViewLocale($this->getCurrentEditionLocale());
-        }
-
         return $rewriting;
     }
 
