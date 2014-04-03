@@ -58,6 +58,7 @@ class Rewriting extends BaseLoop implements PropelSearchLoopInterface
         return new ArgumentCollection(
             Argument::createIntListTypeArgument('id'),
             Argument::createIntTypeArgument('lang'),
+            Argument::createBooleanTypeArgument('show_default', 1),
             new Argument(
                 'order',
                 new TypeCollection(
@@ -84,7 +85,9 @@ class Rewriting extends BaseLoop implements PropelSearchLoopInterface
             $localeSearch = LangQuery::create()->findPk($lang);
             $search->filterByViewLocale($localeSearch->getLocale());
         }
-        
+
+        if (!$this->getShowDefault()) $search->filterByView($this->default_views, Criteria::NOT_IN);
+
         $orders  = $this->getOrder();
 
         foreach ($orders as $order) {

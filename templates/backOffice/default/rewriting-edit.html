@@ -50,7 +50,7 @@
 				    {form_field form=$form field='view_locale'}
 					<div class="form-group {if $error}has-error{/if}">
 					    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
-					    <select type="text" id="{$label_attr.for}" name="{$name}" class="form-control">
+					    <select type="text" id="{$label_attr.for}" name="{$name}" class="form-control" {if !$CUSTOM}disabled="disabled"{/if}>
 						{loop name="lang_list" type="lang"}
 						    <option value="{$LOCALE}" {if $LOCALE == $VIEW_LOCALE}selected="selected"{/if}>{$TITLE}</option>
 						{/loop}
@@ -60,24 +60,24 @@
     
 				    {if $form_error}<div class="alert alert-danger">{$form_error_message}</div>{/if}
     
-				    {form_field form=$form field='url'}
-				    <div class="form-group {if $error}has-error{/if}">
-				    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
-				    <input type="text" id="{$label_attr.for}" required="required" name="{$name}" value="{$value}" title="{intl l='Rule URL'}" placeholder="{intl l='Rule URL'}" class="form-control">
-				    </div>
-				    {/form_field}
-    
 				    {form_field form=$form field='view'}
 				    <div class="form-group {if $error}has-error{/if}">
 					<label for="{$label_attr.for}" class="control-label">{$label} : </label>
-					<input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='Rule View'}" placeholder="{intl l='Rule View'}" class="form-control">
+					<input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='Rule View'}" placeholder="{intl l='Rule View'}" class="form-control" {if !$CUSTOM}disabled="disabled"{/if}>
 				    </div>
 				    {/form_field}
 				    
 				    {form_field form=$form field='view_id'}
 				    <div class="form-group {if $error}has-error{/if}">
 					<label for="{$label_attr.for}" class="control-label">{$label} : </label>
-					<input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='Rule View ID'}" placeholder="{intl l='Rule View ID'}" class="form-control">
+					<input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='Rule View ID'}" placeholder="{intl l='Rule View ID'}" class="form-control" {if !$CUSTOM}disabled="disabled"{/if}>
+				    </div>
+				    {/form_field}
+				    
+				    {form_field form=$form field='url'}
+				    <div class="form-group {if $error}has-error{/if}">
+				    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
+				    <input type="text" id="{$label_attr.for}" required="required" name="{$name}" value="{$value}" title="{intl l='Rule URL'}" placeholder="{intl l='Rule URL'}" class="form-control">
 				    </div>
 				    {/form_field}
 				    

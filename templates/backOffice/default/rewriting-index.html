@@ -17,7 +17,6 @@
                 <li><a href="#">{intl l="Rewriting URL"}</a></li>
             </ul>
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <form action="{url path='/admin/module/RewritingUrl/update-values'}" method="post">
@@ -35,7 +34,7 @@
                                     </div>
                                     {/loop}
                                     {include
-                                        file="includes/inner-form-toolbar.html"
+                                        file="includes/rewriteurl-inner-form-toolbar.html"
                                         hide_submit_buttons = true
                                     }
 	                        </caption>
@@ -95,51 +94,8 @@
                                        <th>{intl l='Action'}</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-  	                        {loop name="rewriting" type="rewriting" order=$order backend_context="1" lang="$edit_language_id"}
-  	                            <tr>
-
-                                        <td>{$ID}</td>
-
-                                        <td>
-                                            {if ! $CUSTOM}
-                                                {$VIEW}
-                                            {else}
-                                                <input id="view_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="view[{$ID}]" value="{$VIEW}" />
-                                            {/if}
-                                        </td>
-                                        
-                                        <td>
-                                            {if ! $CUSTOM}
-                                                {$VIEW_ID}
-                                            {else}
-                                                <input id="view_id_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="view_id[{$ID}]" value="{$VIEW_ID}" />
-                                            {/if}
-                                        </td>
-
-  	                                <td>
-  	                                    <input id="url_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="url[{$ID}]" value="{$URL}" />
-  	                                </td>
-                                        
-                                        <td>
-  	                                    <input id="redirected_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="redirected[{$ID}]" value="{$REDIRECTED}" />
-  	                                </td>
-
-  	                                <td class="actions">
-  	                                    
-  		                            <div class="btn-group">
-                                                {loop type="auth" name="can_change" role="ADMIN" resource="admin.rewritingurl" access="UPDATE"}
-                                                    <a class="btn btn-default btn-xs config-change" title="{intl l='Change this rule'}" href="{url path='/admin/module/RewritingUrl/update' rewriting_id="$ID"}"><i class="glyphicon glyphicon-edit"></i></a>
-                                                {/loop}
-                                                {if $CUSTOM}
-                                                {loop type="auth" name="can_delete" role="ADMIN" resource="admin.rewritingurl" access="DELETE"}
-                                                    <a class="btn btn-default btn-xs config-delete" title="{intl l='Delete this rule'}" href="#delete_rewriting_dialog" data-id="{$ID}" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i></a>
-                                                {/loop}
-                                                {/if}
-  		                            </div>  	                                   
-  	                                </td>
-  	                            </tr>
-  	                        {/loop}
+                                <tbody id="rewriting-list">
+  	                        {include file='includes/rewriteurl-list-ajax.html'}
                                 </tbody>
 	                    </table>
                         </div>
@@ -241,6 +197,9 @@
 {/block}
 
 {block name="javascript-initialization"}
+    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
+        <script src="{$asset_url}"></script>
+    {/javascripts}
 <script>
     $(function() {
 
@@ -255,6 +214,21 @@
     	$('a.config-delete').click(function(ev) {
     	    $('#rewriting_delete_id').val($(this).data('id'));
      	});
+        
+        $(".rewriteUrlShowToggle").on('switch-change', function(event, data) {
+            $.ajax({
+                url : "{url path='admin/module/RewritingUrl/show-toggle'}",
+                data : {
+                    show_default : data.value
+                },
+                success : function(data) {
+                    // data is ur summary
+                    $('#rewriting-list').html(data);
+                }
+            });
+        });
+
+        
     });
 </script>
 {/block}

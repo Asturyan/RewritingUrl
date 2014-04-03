@@ -1,0 +1,44 @@
+
+				{loop name="rewriting" type="rewriting" order=$order backend_context="1" lang="$edit_language_id" show_default="$show_default"}
+  	                            <tr>
+
+                                        <td>{$ID}</td>
+
+                                        <td>
+                                            {if ! $CUSTOM}
+                                                {$VIEW}
+                                            {else}
+                                                <input id="view_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="view[{$ID}]" value="{$VIEW}" />
+                                            {/if}
+                                        </td>
+                                        
+                                        <td>
+                                            {if ! $CUSTOM}
+                                                {$VIEW_ID}
+                                            {else}
+                                                <input id="view_id_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="view_id[{$ID}]" value="{$VIEW_ID}" />
+                                            {/if}
+                                        </td>
+
+  	                                <td>
+  	                                    <input id="url_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="url[{$ID}]" value="{$URL}" />
+  	                                </td>
+                                        
+                                        <td>
+  	                                    <input id="redirected_edit_{$ID}" class="form-control" data-id="{$ID}" type="text" name="redirected[{$ID}]" value="{$REDIRECTED}" />
+  	                                </td>
+
+  	                                <td class="actions">  
+  		                            <div class="btn-group">
+                                                {loop type="auth" name="can_change" role="ADMIN" resource="admin.rewritingurl" access="UPDATE"}
+                                                    <a class="btn btn-default btn-xs config-change" title="{intl l='Change this rule'}" href="{url path='/admin/module/RewritingUrl/update' rewriting_id="$ID"}"><i class="glyphicon glyphicon-edit"></i></a>
+                                                {/loop}
+                                                {if $CUSTOM}
+                                                {loop type="auth" name="can_delete" role="ADMIN" resource="admin.rewritingurl" access="DELETE"}
+                                                    <a class="btn btn-default btn-xs config-delete" title="{intl l='Delete this rule'}" href="#delete_rewriting_dialog" data-id="{$ID}" data-toggle="modal"><i class="glyphicon glyphicon-trash"></i></a>
+                                                {/loop}
+                                                {/if}
+  		                            </div>  	                                   
+  	                                </td>
+  	                            </tr>
+  	                        {/loop}

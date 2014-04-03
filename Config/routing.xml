@@ -26,4 +26,8 @@
     <route id="admin.rewriting.delete" path="/admin/module/RewritingUrl/delete">
         <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::deleteAction</default>
     </route>
+    
+    <route id="admin.rewriting.show-toggle" path="/admin/module/RewritingUrl/show-toggle">
+        <default key="_controller">RewritingUrl\Controller\Admin\RewritingUrlController::showToggleAction</default>
+    </route>
 </routes>

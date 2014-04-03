@@ -131,7 +131,8 @@ class RewritingUrlController extends AbstractCrudController
 
     protected function renderListTemplate($currentOrder)
     {
-        return $this->render('rewriting-index', array('order' => $currentOrder));
+        if (is_null($this->getSession()->get('show_default'))) $this->getSession()->set('show_default', 1);
+        return $this->render('rewriting-index', array('order' => $currentOrder, 'show_default' => $this->getSession()->get('show_default')));
     }
 
     protected function renderEditionTemplate()
@@ -178,6 +179,16 @@ class RewritingUrlController extends AbstractCrudController
         }
 
         $this->redirect('/admin/module/RewritingUrl');
+    }
+    
+    public function showToggleAction()
+    {
+        $this->checkAuth($this->resourceCode, array(), AccessManager::UPDATE);
+        $this->checkXmlHttpRequest();
+        $this->getSession()->set('show_default', $this->getRequest()->get('show_default') == 'true'?1:0);
+        $args = array('show_default' => $this->getSession()->get('show_default'));
+
+        return $this->render('includes/rewriteurl-list-ajax', $args);
     }
 
 }
