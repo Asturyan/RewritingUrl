@@ -29,21 +29,17 @@ Parameters:
   		</ul>
     {/if}
     </div>
-
-    <div class="col-md-6 inner-actions">
-	<div class="make-switch switch-small rewriteUrlShowToggle" data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok'></i>" data-off-label="<i class='glyphicon glyphicon-remove'></i>">
-	    <input type="checkbox" class="rewriteUrlShowToggle" {if $show_default}checked="checked"{/if}> 
-	</div>
-	 {intl l='Show products, contents, categories and folders URLS'}
-    </div>
-
     <div class="col-md-3 inner-actions">
-         {if $hide_submit_buttons != true}
-            <button type="submit" name="save_mode" value="stay" class="form-submit-button btn btn-sm btn-default btn-success" title="{intl l='Save'}">{intl l='Save'} <span class="glyphicon glyphicon-ok"></span></button>
-            <button type="submit" name="save_mode" value="close" class="form-submit-button btn btn-sm btn-default btn-info" title="{intl l='Save and close'}">{intl l='Save and close'} <span class="glyphicon glyphicon-remove"></span></button>
-         {/if}
-         {if ! empty($close_url)}
-            <a href="{$close_url}" class="page-close-button btn btn-sm btn-default">{intl l='Close'} <span class="glyphicon glyphicon-remove"></span></a>
-         {/if}
+	&nbsp;
+    </div>
+    <div class="col-md-6">
+	<div class="row">
+            <div class="col-md-12">
+		<div class="make-switch switch-small rewriteUrlShowToggle" data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok'></i>" data-off-label="<i class='glyphicon glyphicon-remove'></i>">
+		    <input type="checkbox" name="showtoggle" class="rewriteUrlShowToggle" {if $show_default}checked="checked"{/if}> 
+		</div>
+		<label for="showtoggle"> {intl l='Show products, contents, categories and folders URLS'}</label>
+	    </div>
+	</div>
     </div>
 </div>

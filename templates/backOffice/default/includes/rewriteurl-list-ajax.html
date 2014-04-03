@@ -1,4 +1,4 @@
-
+				{ifloop rel="rewriting"}
 				{loop name="rewriting" type="rewriting" order=$order backend_context="1" lang="$edit_language_id" show_default="$show_default"}
   	                            <tr>
 
@@ -42,3 +42,19 @@
   	                                </td>
   	                            </tr>
   	                        {/loop}
+				{/ifloop}
+				{elseloop rel="rewriting"}
+                                    <tr>
+                                        <td class="message" colspan="6">
+                                            <div class="alert alert-info">
+                                            {loop type="auth" name="can_create" role="ADMIN" resource="admin.rewriting" access="CREATE"}
+                                                {intl l="No rule exists. To create a new one, click the + button above."}
+                                            {/loop}
+   
+                                            {elseloop rel="can_create"}
+                                               {intl l="No rule exists."}
+                                            {/elseloop}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {/elseloop}
