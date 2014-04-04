@@ -31,7 +31,7 @@
   	                                <td class="actions">  
   		                            <div class="btn-group">
                                                 {loop type="auth" name="can_change" role="ADMIN" resource="admin.rewritingurl" access="UPDATE"}
-                                                    <a class="btn btn-default btn-xs config-change" title="{intl l='Change this rule'}" href="{url path='/admin/module/RewritingUrl/update' rewriting_id="$ID"}"><i class="glyphicon glyphicon-edit"></i></a>
+                                                    <a class="btn btn-default btn-xs config-change" title="{intl l='Edit this rule'}" href="{url path='/admin/module/RewritingUrl/update' rewriting_id="$ID"}"><i class="glyphicon glyphicon-edit"></i></a>
                                                 {/loop}
                                                 {if $CUSTOM}
                                                 {loop type="auth" name="can_delete" role="ADMIN" resource="admin.rewritingurl" access="DELETE"}

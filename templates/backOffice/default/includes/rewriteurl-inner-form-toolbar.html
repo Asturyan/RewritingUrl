@@ -4,29 +4,26 @@ A toolbar displayed in forms, to display language change flags, submit and close
 Parameters:
 
    - hide_flags: true / false. If true, the flags will not be visible
-   - hide_submit_buttons: true / false. If true, only the close button will be deplayed.
-   - show_currencies: true/false. If true, show the currency selection bar
-   - page_url: the current page URL. Default is $current_url. Used to switchedition anguage.
-   - close_url: no default. URL displayed when close button is clicked. If empty, the close button is not displayed.
+
 *}
 
 <div class="row inner-toolbar">
     <div class="col-md-3 inner-actions">
     {if $hide_flags != true}
-		<ul class="nav nav-pills">
-		    {loop name="lang_list" type="lang"}
-		    <li {if $ID == $edit_language_id}class="active"{/if}>
-                {if $current_tab}
-                    {$lang_url = {url path={$page_url|default:$current_url nofilter} edit_language_id=$ID current_tab=$current_tab}}
-                {else}
-                    {$lang_url = {url path={$page_url|default:$current_url nofilter} edit_language_id=$ID}}
-                {/if}
-		        <a class="language-change-button" data-language-id="{$ID}" href="{$lang_url nofilter}" title="{intl l='Edit information in %lng' lng=$TITLE}">
-		            <img src="{image file="../assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" />
-		        </a>
-		    </li>
-		    {/loop}
-  		</ul>
+	<ul class="nav nav-pills">
+	    {loop name="lang_list" type="lang"}
+	    <li {if $ID == $edit_language_id}class="active"{/if}>
+		{if $current_tab}
+		    {$lang_url = {url path={$page_url|default:$current_url nofilter} edit_language_id=$ID current_tab=$current_tab}}
+		{else}
+		    {$lang_url = {url path={$page_url|default:$current_url nofilter} edit_language_id=$ID}}
+		{/if}
+		<a class="language-change-button" data-language-id="{$ID}" href="{$lang_url nofilter}" title="{intl l='Edit information in %lng' lng=$TITLE}">
+		    <img src="{image file="../assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" />
+		</a>
+	    </li>
+	    {/loop}
+	</ul>
     {/if}
     </div>
     <div class="col-md-3 inner-actions">
@@ -35,8 +32,8 @@ Parameters:
     <div class="col-md-6">
 	<div class="row">
             <div class="col-md-12">
-		<div class="make-switch switch-small rewriteUrlShowToggle" data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok'></i>" data-off-label="<i class='glyphicon glyphicon-remove'></i>">
-		    <input type="checkbox" name="showtoggle" class="rewriteUrlShowToggle" {if $show_default}checked="checked"{/if}> 
+		<div class="make-switch switch-small rewritingUrlShowToggle" data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok'></i>" data-off-label="<i class='glyphicon glyphicon-remove'></i>">
+		    <input type="checkbox" name="showtoggle" class="rewritingUrlShowToggle" {if $show_default}checked="checked"{/if}> 
 		</div>
 		<label for="showtoggle"> {intl l='Show products, contents, categories and folders URLS'}</label>
 	    </div>

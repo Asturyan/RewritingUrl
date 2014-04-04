@@ -40,7 +40,7 @@ class RewritingUrlCreationForm extends BaseForm
                 "constraints" => array(
                     new Constraints\NotBlank()
                 ),
-                'label' => Translator::getInstance()->trans('View *'),
+                'label' => Translator::getInstance()->trans('Rewriting View *'),
                 'label_attr' => array(
                     'for' => 'view'
                 )

@@ -27,7 +27,7 @@
                                     {intl l='Rewriting URL'}
                                     {loop type="auth" name="can_create" role="ADMIN" resource="admin.rewritingurl" access="CREATE"}
                                     <div class="pull-right">
-                                       <a class="btn btn-default btn-primary action-btn" title="{intl l='Add a new rewrite rule'}" href="#creation_rewriting_dialog" data-toggle="modal">
+                                       <a class="btn btn-default btn-primary action-btn" title="{intl l='Add a new rewriting rule'}" href="#creation_rewriting_dialog" data-toggle="modal">
                                            <span class="glyphicon glyphicon-plus-sign"></span>
                                        </a>
                                        <button class="btn btn-default btn-primary" title="{intl l='Save changes'}"><span class="glyphicon glyphicon-ok"></span> {intl l='Save changes'}</button>
@@ -57,7 +57,7 @@
                                            order='view'
                                            reverse_order='view_reverse'
                                            path={url path='/admin/module/RewritingUrl'}
-                                           label={intl l='View'}
+                                           label={intl l='Rewriting View'}
                                         }
                                         </th>
                                         
@@ -123,7 +123,7 @@
 			{form_field form=$form field='view'}
                             <div class="form-group {if $error}has-error{/if}">
                                 <label for="{$label_attr.for}" class="control-label">{$label} : </label>
-                                <input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='View'}" placeholder="{intl l='View'}" class="form-control">
+                                <input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='View'}" placeholder="{intl l='Rewriting View'}" class="form-control">
                             </div>
                         {/form_field}
                         
@@ -141,7 +141,7 @@
                                 {* Switch edition to the current locale *}
                                 <input type="hidden" name="edit_language_id" value="{$ID}" />
                                 <div class="input-group">
-                                    <input type="text" id="{$label_attr.for}" required="required" name="{$name}" value="{$value}" title="{intl l='Rule url'}" placeholder="{intl l='Rule url'}" class="form-control">
+                                    <input type="text" id="{$label_attr.for}" required="required" name="{$name}" value="{$value}" title="{intl l='Rule Url'}" placeholder="{intl l='Rule Url'}" class="form-control">
                                     <span class="input-group-addon"><img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{intl l=$TITLE}" /></span>
                                 </div>
                                 
@@ -167,7 +167,7 @@
 	        file = "includes/generic-create-dialog.html"
 
 	        dialog_id    = "creation_rewriting_dialog"
-	        dialog_title = {intl l="Create a new rewrite rule"}
+	        dialog_title = {intl l="Create a new rewriting rule"}
 	        dialog_body  = {$smarty.capture.creation_rewriting_dialog nofilter}
 
 	        dialog_ok_label     = {intl l="Create this rule"}
@@ -188,7 +188,7 @@
         file = "includes/generic-confirm-dialog.html"
 
         dialog_id       = "delete_rewriting_dialog"
-        dialog_title    = {intl l="Delete a rule"}
+        dialog_title    = {intl l="Delete a rewriting rule"}
         dialog_message  = {intl l="Do you really want to delete this rule ?"}
 
         form_action         = {url path='/admin/module/RewritingUrl/delete'}
@@ -215,7 +215,7 @@
     	    $('#rewriting_delete_id').val($(this).data('id'));
      	});
         
-        $(".rewriteUrlShowToggle").on('switch-change', function(event, data) {
+        $(".rewritingUrlShowToggle").on('switch-change', function(event, data) {
             $.ajax({
                 url : "{url path='admin/module/RewritingUrl/show-toggle'}",
                 data : {
